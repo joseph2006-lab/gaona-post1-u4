@@ -51,3 +51,9 @@
     int  21h
     pop  ax
 %endmacro
+; %1 = numero de copias (constante conocida al ensamblar)
+%macro bloque_decorativo 1
+    %rep %1
+    print_str separador_corto
+    %endrep
+%endmacro
