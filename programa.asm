@@ -11,6 +11,9 @@ ITERACIONES EQU  5           ; numero de repeticiones del bucle
 section .data
     bienvenida  db "=== Laboratorio NASM - Unidad 4 ===", CR, LF, TERMINADOR
     separador   db "----------------------------------------", CR, LF, TERMINADOR
+    linea_gruesa:
+    TIMES 40 DB '='
+    DB CR, LF, TERMINADOR
     etiqueta_a  db "Variable A (word):  ", TERMINADOR
     etiqueta_b  db "Variable B (dword): ", TERMINADOR
     fin_msg     db "Programa finalizado correctamente.", CR, LF, TERMINADOR
@@ -35,12 +38,12 @@ main:
     int  21h
     mov  dx, separador
     int  21h
-        ; === Función 09h: imprimir cadenas ===
+        ; === Funcion 09h: imprimir cadenas ===
     mov  ah, 09h
     mov  dx, etiqueta_a
     int  21h
 
-    ; === Función 02h: imprimir un carácter ===
+    ; === Funcion 02h: imprimir un carocter ===
     mov  al, [var_byte]
     add  al, 30h
     mov  ah, 02h
@@ -72,6 +75,24 @@ imprimir_tabla:
     mov  dl, CR
     int  21h
     mov  dl, LF
+    int  21h
+    mov  ah, 02h
+    mov  dl, CR
+    int  21h
+    mov  dl, LF
+    int  21h
+
+    ; === Mensaje final ===
+    mov  ah, 09h
+    mov  dx, fin_msg
+    int  21h
+
+    ; === Linea decorativa generada con TIMES ===
+    mov  ah, 09h
+    mov  dx, linea_gruesa
+    int  21h
+
+    mov  ax, 4C00h
     int  21h
     mov  ax, 4C00h
     int  21h
